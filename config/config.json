@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "example",
+    "database": "smart-vending-system-database",
+    "host": "db2",
+    "dialect": "postgres"
+  }
+}

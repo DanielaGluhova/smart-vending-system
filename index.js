@@ -1,11 +1,12 @@
 import app from "./app.js";
-import { Addon } from "./connectdb.js";
-import { Category } from "./connectdb.js";
+import { Addon } from "./models/Addon.js";
+import { Category } from "./models/Category.js"
 
 const PORT = 3000;
 
 (async () => {
   try {
+    await sequelize.authenticate();
     // Start server
     app.listen(PORT, () => {
       console.log(`🚀 Server listening on port ${PORT}`);
