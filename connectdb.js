@@ -1,17 +1,20 @@
 import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize("postgres://postgres:example@db2:5432/smart-vending-system-database");
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .catch((err) => {
-    console.error("Unable to connect to the database:", err);
-  });
+const sequelize = new Sequelize(
+  "postgres://postgres:example@db2:5432/smart-vending-system-database",
+  {
+    logging: false,
+  }
+);
 
-  // sequelize.sync({ force: true }).then(() => {
-  //   console.log(`Database & tables created!`);
-// });
+export async function connectDb() {
+  try {
+    await sequelize.authenticate();
+    console.log("✅ Database connected");
+  } catch (error) {
+    console.error("❌ Database connection failed");
+    throw error;
+  }
+}
 
 export default sequelize;

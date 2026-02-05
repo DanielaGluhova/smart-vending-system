@@ -1,22 +1,20 @@
 import app from "./app.js";
-import { Addon } from "./models/Addon.js";
-import { Category } from "./models/Category.js"
+import { connectDb } from "./connectdb.js";
+import "./models/index.js";
 
 const PORT = 3000;
 
-(async () => {
+async function startServer() {
   try {
-    await sequelize.authenticate();
-    // Start server
-    app.listen(PORT, () => {
-      console.log(`🚀 Server listening on port ${PORT}`);
+    await connectDb();
+
+    app.listen(PORT,"0.0.0.0", () => {
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
-  } catch (error) {
-    console.error("❌ DB connection failed:", error.message);
+  } catch (error) {С
+    console.error("❌ Server failed to start");
     process.exit(1);
   }
-})();
+}
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+startServer();
