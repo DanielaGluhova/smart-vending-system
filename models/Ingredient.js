@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../connectdb";
+import sequelize from "../connectdb.js";
 
 export const Ingredient = sequelize.define("ingredients", {
     id: {
