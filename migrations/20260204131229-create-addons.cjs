@@ -18,7 +18,7 @@ module.exports = {
         allowNull: false,
       },
       unit: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM("gr", "ml", "pcs"),
         allowNull: false,
       },
       price: {
