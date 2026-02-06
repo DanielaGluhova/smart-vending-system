@@ -27,6 +27,12 @@ module.exports = {
         allowNull: false
       }
     });
+    await queryInterface.addConstraint("beverage_ingredients", {
+      fields: ["beverageId", "ingredientId"],
+      type: "unique",
+      name: "uq_beverage_ingredient",
+    });
+
   },
 
   async down(queryInterface) {
