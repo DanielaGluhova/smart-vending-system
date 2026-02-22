@@ -13,18 +13,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      quantity: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      unit: {
-        type: Sequelize.ENUM("gr", "ml", "pcs"),
-        allowNull: false,
-      },
       price: {
         type: Sequelize.DOUBLE,
         allowNull: true,
       },
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      }
     });
   },
 

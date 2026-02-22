@@ -1,9 +1,10 @@
 import { Addon } from "./Addon.js";
 import { Category } from "./Category.js";
 import { Ingredient } from "./Ingredient.js";
-import { Beverage } from "./Beverage.js"
+import { Beverage } from "./Beverage.js";
 import { BeverageIngredient } from "./BeverageIngredient.js";
 import { BeverageAddon } from "./BeverageAddon.js";
+import { AddonIngredient } from "./AddonIngredient.js";
 
 Category.hasMany(Beverage, { foreignKey: "categoryId" });
 Beverage.belongsTo(Category, { foreignKey: "categoryId" });
@@ -36,11 +37,18 @@ Addon.belongsToMany(Beverage, {
   timestamps: false,
 });
 
+Addon.hasOne(AddonIngredient, { foreignKey: "addonId" })
+AddonIngredient.belongsTo(Addon, { foreignKey: "addonId" })
+
+Ingredient.hasMany(AddonIngredient, { foreignKey: "ingredientId" })
+AddonIngredient.belongsTo(Ingredient, { foreignKey: "ingredientId" })
+
 export {
   Addon,
   Category,
   Ingredient,
   Beverage,
   BeverageIngredient,
-  BeverageAddon
+  BeverageAddon,
+  AddonIngredient,
 };

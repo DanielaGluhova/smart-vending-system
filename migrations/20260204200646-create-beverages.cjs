@@ -34,6 +34,8 @@ module.exports = {
           model: "categories",
           key: "id",
         },
+        onDelete: "RESTRICT",
+        onUpdate: "CASCADE"
       }
     })
   },

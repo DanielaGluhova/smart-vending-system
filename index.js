@@ -11,7 +11,7 @@ async function startServer() {
     app.listen(PORT,"0.0.0.0", () => {
       console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
-  } catch (error) {С
+  } catch (error) {
     console.error("❌ Server failed to start");
     process.exit(1);
   }

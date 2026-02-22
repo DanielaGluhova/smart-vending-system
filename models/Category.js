@@ -1,13 +1,13 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../connectdb.js";
 
-export const Category = sequelize.define("categories", {
+export const Category = sequelize.define("Category", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
-  categoryName: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
   },

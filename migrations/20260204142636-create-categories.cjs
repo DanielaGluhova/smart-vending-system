@@ -8,10 +8,15 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      categoryName: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
+    });
+    await queryInterface.addConstraint("categories", {
+      fields: ["name"],
+      type: "unique",
+      name: "uq_categories_name",
     });
   },
 
