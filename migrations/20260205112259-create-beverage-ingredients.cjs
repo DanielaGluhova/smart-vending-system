@@ -21,10 +21,6 @@ module.exports = {
       amount: {
         type: Sequelize.DECIMAL(10, 3),
         allowNull: false
-      },
-      unit: {
-        type: Sequelize.ENUM("gr", "ml", "pcs"),
-        allowNull: false
       }
     });
     await queryInterface.addConstraint("beverage_ingredients", {

@@ -20,10 +20,6 @@ export const BeverageIngredient = sequelize.define("beverage_ingredients", {
     amount: {
         type: DataTypes.DECIMAL(10, 3),
         allowNull: false
-    },
-    unit: {
-        type: DataTypes.ENUM("gr", "ml", "pcs"),
-        allowNull: false
     }
 },
 {
