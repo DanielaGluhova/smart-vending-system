@@ -37,11 +37,23 @@ Addon.belongsToMany(Beverage, {
   timestamps: false,
 });
 
-Addon.hasOne(AddonIngredient, { foreignKey: "addonId" })
-AddonIngredient.belongsTo(Addon, { foreignKey: "addonId" })
+Addon.hasOne(AddonIngredient, { foreignKey: "addonId" });
+AddonIngredient.belongsTo(Addon, { foreignKey: "addonId" });
 
-Ingredient.hasMany(AddonIngredient, { foreignKey: "ingredientId" })
-AddonIngredient.belongsTo(Ingredient, { foreignKey: "ingredientId" })
+Ingredient.hasMany(AddonIngredient, { foreignKey: "ingredientId" });
+AddonIngredient.belongsTo(Ingredient, { foreignKey: "ingredientId" });
+
+Beverage.hasMany(BeverageIngredient, { foreignKey: "beverageId" });
+BeverageIngredient.belongsTo(Beverage, { foreignKey: "beverageId" });
+
+Ingredient.hasMany(BeverageIngredient, { foreignKey: "ingredientId" });
+BeverageIngredient.belongsTo(Ingredient, { foreignKey: "ingredientId" });
+
+Beverage.hasMany(BeverageAddon, { foreignKey: "beverageId" });
+BeverageAddon.belongsTo(Beverage, { foreignKey: "beverageId" });
+
+Addon.hasMany(BeverageAddon, { foreignKey: "addonId" });
+BeverageAddon.belongsTo(Addon, { foreignKey: "addonId" });
 
 export {
   Addon,
