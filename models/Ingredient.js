@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../connectdb.js";
 
-export const Ingredient = sequelize.define("Ingrеdient", {
+export const Ingredient = sequelize.define("Ingredient", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
