@@ -20,7 +20,11 @@ const ERROR_STATUS_MAP = {
     "Base price must be a number greater than or equal to 0": 400,
     "Invalid category id": 400,
     "Beverage not found": 404,
-    
+    "Invalid beverage id": 400,
+    "Invalid ingredient id": 400,
+    "Ingredient already exists in recipe": 400,
+    "Recipe ingredient not found": 404,
+    "Ingredient not found in recipe": 404
 }
 
 export const getStatusCode = (message) => {
