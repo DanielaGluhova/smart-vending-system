@@ -24,7 +24,10 @@ const ERROR_STATUS_MAP = {
     "Invalid ingredient id": 400,
     "Ingredient already exists in recipe": 400,
     "Recipe ingredient not found": 404,
-    "Ingredient not found in recipe": 404
+    "Ingredient not found in recipe": 404,
+    "Invalid addon id": 400,
+    "Addon already exists in beverage": 400,
+    "Addon not found in beverage": 404,
 }
 
 export const getStatusCode = (message) => {
