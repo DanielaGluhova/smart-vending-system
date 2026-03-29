@@ -5,6 +5,8 @@ import { Router } from "express";
 
 const router = Router();
 
+router.get("/available", BeverageController.getAvailableBeverages);
+router.get("/:id/addons/available", BeverageController.getAvailableAddonsForBeverage);
 router.post("/", BeverageController.createBeverage);
 router.get("/", BeverageController.getAllBeverages);
 router.get("/:id", BeverageController.getBeverageById);

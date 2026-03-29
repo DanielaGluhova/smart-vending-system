@@ -1,4 +1,5 @@
-import { BeverageIngredient } from "../models/BeverageIngredient.js"
+import { BeverageIngredient } from "../models/BeverageIngredient.js";
+import { Ingredient } from "../models/Ingredient.js";
 
 export const BeverageIngredientRepository = {
     async countByIngredientId(ingredientId) {
@@ -11,7 +12,7 @@ export const BeverageIngredientRepository = {
         return BeverageIngredient.findOne({ where: { beverageId, ingredientId } });
     },
     async findAllByBeverageId(beverageId) {
-        return BeverageIngredient.findAll({ where: { beverageId } });
+        return BeverageIngredient.findAll({ where: { beverageId }, include: Ingredient, order: [["id", "ASC"]]});
     },
     async update(beverageIngredientInstance, data) {
         return beverageIngredientInstance.update(data);

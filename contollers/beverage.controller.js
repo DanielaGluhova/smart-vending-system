@@ -51,6 +51,25 @@ export const BeverageController = {
             const status = getStatusCode(error.message);
             return res.status(status).json({ error: error.message });
         }
+    },
+    async getAvailableBeverages(req, res) {
+        try {
+            const availableBeverages = await BeverageService.getAvailableBeverages();
+            return res.status(200).json(availableBeverages);
+        } catch (error) {
+            const status = getStatusCode(error.message);
+            return res.status(status).json({error: error.message});
+        }
+    },
+    async getAvailableAddonsForBeverage(req,res) {
+        try {
+            const { id } = req.params;
+            const availableAddons = await BeverageService.getAvailableAddonsForBeverage(id);
+            return res.status(200).json(availableAddons);
+        } catch (error) {
+            const status = getStatusCode(error.message);
+            return res.status(status).json({error: error.message});
+        }
     }
 
 }
