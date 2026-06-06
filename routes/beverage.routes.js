@@ -1,6 +1,6 @@
-import { BeverageController } from "../contollers/beverage.controller.js";
-import { BeverageIngredientController } from "../contollers/beverageIngredient.controller.js";
-import { BeverageAddonController } from "../contollers/beverageAddon.controller.js";
+import { BeverageController } from "../controllers/beverage.controller.js";
+import { BeverageIngredientController } from "../controllers/beverageIngredient.controller.js";
+import { BeverageAddonController } from "../controllers/beverageAddon.controller.js";
 import { Router } from "express";
 
 const router = Router();

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { AddonController } from "../contollers/addon.controller.js";
-import { AddonIngredientController } from "../contollers/addonIngredient.controller.js";
+import { AddonController } from "../controllers/addon.controller.js";
+import { AddonIngredientController } from "../controllers/addonIngredient.controller.js";
 
 const router = Router();
 
