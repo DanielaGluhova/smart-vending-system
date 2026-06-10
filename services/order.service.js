@@ -7,23 +7,13 @@ import { IngredientRepository } from "../repositories/ingredient.repository.js";
 import { BeverageIngredientRepository } from "../repositories/beverageIngredient.repository.js";
 
 export const OrderService = {
-    async calculateOrderTotal(beverageId,addonIds) {
-        const numericBeverageId = Number(beverageId);
-        if (!Number.isInteger(numericBeverageId)) {
-            throw new Error("Invalid beverage id");
-        }
-
-        const beverage = await BeverageRepository.findById(numericBeverageId);
-        if (!beverage) {
-            throw new Error("Beverage not found");
-        }
-
+    async validateAndGetAddons(numericBeverageId, addonIds) {
         const isArray = Array.isArray(addonIds);
         if (!isArray) {
             throw new Error("AddonIds must be array");
         }
-        
-        let total = Number(beverage.basePrice);
+
+        const validAddons = [];
 
         for (const addonId of addonIds) {
             const numericAddonId = Number(addonId);
@@ -41,8 +31,28 @@ export const OrderService = {
                 throw new Error("Addon not allowed for beverage");
             }
 
-            total += Number(addon.price);
+            validAddons.push(addon);
+        }
+        return validAddons;
+    },
 
+    async calculateOrderTotal(beverageId,addonIds) {
+        const numericBeverageId = Number(beverageId);
+        if (!Number.isInteger(numericBeverageId)) {
+            throw new Error("Invalid beverage id");
+        }
+
+        const beverage = await BeverageRepository.findById(numericBeverageId);
+        if (!beverage) {
+            throw new Error("Beverage not found");
+        }
+        
+        let total = Number(beverage.basePrice);
+
+        const validAddons = await this.validateAndGetAddons(numericBeverageId, addonIds);
+
+        for (const addon of validAddons) {
+            total += Number(addon.price);
         }
         return total;
     },
@@ -62,32 +72,14 @@ export const OrderService = {
             return false;
         }
 
-        const isArray = Array.isArray(addonIds);
-        if (!isArray) {
-            throw new Error("AddonIds must be array");
-        }
+        const validAddons = await this.validateAndGetAddons(numericBeverageId, addonIds);
 
-        for (const addonId of addonIds) {
-            const numericAddonId = Number(addonId);
-            if (!Number.isInteger(numericAddonId)) {
-                throw new Error("Invalid addon id");
-            }
-
-            const addon = await AddonRepository.findById(numericAddonId);
-            if (!addon) {
-                throw new Error("Addon not found");
-            }
-
-            const addonIsAllowed = await BeverageAddonRepository.findByBeverageAndAddon(numericBeverageId, numericAddonId);
-            if (!addonIsAllowed) {
-                throw new Error("Addon not allowed for beverage");
-            }
-
+        for (const addon of validAddons) {
             if (!addon.isActive) {
                 return false;
             }
 
-            const addonIngredient = await AddonIngredientRepository.findByAddonId(numericAddonId);
+            const addonIngredient = await AddonIngredientRepository.findByAddonId(addon.id);
             if (!addonIngredient) {
                 return false;
             }
