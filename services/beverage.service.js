@@ -51,7 +51,7 @@ export const BeverageService = {
 
         return beverage;
     },
-    async updateBeverage(id, name, description, basePrice, categoryId) {
+    async updateBeverage(id, name, description, basePrice, categoryId, isActive) {
         const numericId = Number(id);
         if (!Number.isInteger(numericId)) {
             throw new Error("Invalid id");
@@ -87,7 +87,12 @@ export const BeverageService = {
             throw new Error("Beverage already exists!");
         }
 
-        return BeverageRepository.update(beverage, {name: normalizedName, description, basePrice: numericBasePrice, categoryId: numericCategoryId});
+        const booleanIsActive = Boolean(isActive);
+        if (typeof booleanIsActive !== "boolean") {
+            throw new Error("Invalid active status");
+        }
+
+        return BeverageRepository.update(beverage, {name: normalizedName, description, basePrice: numericBasePrice, categoryId: numericCategoryId, isActive});
     },
     async deleteBeverage(id) {
         const numericId = Number(id);

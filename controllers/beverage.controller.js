@@ -34,8 +34,8 @@ export const BeverageController = {
     async updateBeverage(req, res) {
         try {
             const { id } = req.params;
-            const { name, description, basePrice, categoryId } = req.body;
-            const updated = await BeverageService.updateBeverage(id, name, description, basePrice, categoryId);
+            const { name, description, basePrice, categoryId, isActive } = req.body;
+            const updated = await BeverageService.updateBeverage(id, name, description, basePrice, categoryId, isActive);
             return res.status(200).json(updated);
         } catch (error) {
             const status = getStatusCode(error.message);
