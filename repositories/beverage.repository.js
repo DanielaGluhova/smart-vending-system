@@ -1,4 +1,5 @@
 import { Beverage } from "../models/Beverage.js";
+import { Addon } from "../models/Addon.js";
 import { Category } from "../models/Category.js";
 
 export const BeverageRepository = {
@@ -9,7 +10,7 @@ export const BeverageRepository = {
         return Beverage.findAll({include: Category, order: [["id", "ASC"]],});
     },
     async findById(id) {
-        return Beverage.findByPk(id, { include: Category });
+        return Beverage.findByPk(id, { include: [Category, Addon] });
     },
     async findByName(name) {
         return Beverage.findOne({ where: { name } });

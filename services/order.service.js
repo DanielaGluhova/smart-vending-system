@@ -13,6 +13,12 @@ export const OrderService = {
             throw new Error("AddonIds must be array");
         }
 
+        const beverage = await BeverageRepository.findById(numericBeverageId);
+        if (!beverage) {
+            throw new Error("Beverage not found");
+        }
+
+        const beverageAddons = beverage.Addons || [];
         const validAddons = [];
 
         for (const addonId of addonIds) {
@@ -21,17 +27,13 @@ export const OrderService = {
                 throw new Error("Invalid addon id");
             }
 
-            const addon = await AddonRepository.findById(numericAddonId);
-            if (!addon) {
-                throw new Error("Addon not found");
+            const findMatchedAddon = beverageAddons.find(addon => addon.id === numericAddonId);
+
+            if (!findMatchedAddon) {
+                throw new Error("Addon not found for this beverage");
             }
 
-            const addonIsAllowed = await BeverageAddonRepository.findByBeverageAndAddon(numericBeverageId, numericAddonId);
-            if (!addonIsAllowed) {
-                throw new Error("Addon not allowed for beverage");
-            }
-
-            validAddons.push(addon);
+            validAddons.push(findMatchedAddon);
         }
         return validAddons;
     },
@@ -50,11 +52,7 @@ export const OrderService = {
         let total = Number(beverage.basePrice);
 
         const validAddons = await this.validateAndGetAddons(numericBeverageId, addonIds);
-
-        for (const addon of validAddons) {
-            total += Number(addon.price);
-        }
-        return total;
+        return validAddons.reduce((total, addon) => total + Number(addon.price), total);
     },
     async validateOrder(beverageId, addonIds) {
         const numericBeverageId = Number(beverageId);
